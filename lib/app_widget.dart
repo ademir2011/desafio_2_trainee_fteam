@@ -5,8 +5,27 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Autenticação',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        fontFamily: 'OpenSans',
+        colorScheme: const ColorScheme.light(
+          primary: Color(0xff0F1B8A),
+          inversePrimary: Color(0xffE0E5F8),
+          secondary: Color(0xff5E79D1),
+          onSecondary: Color(0xffE0E5F8),
+          tertiary: Color(0xff3F52B3),
+          onTertiary: Color(0xffA5B0D8),
+        ),
+        textTheme: const TextTheme(
+          displayMedium: TextStyle(
+            color: Color(0xff3F52B3),
+            fontWeight: FontWeight.w900,
+            fontSize: 25,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
     );
