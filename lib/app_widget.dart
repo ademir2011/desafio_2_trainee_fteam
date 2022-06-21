@@ -21,9 +21,18 @@ class AppWidget extends StatelessWidget {
           displayMedium: TextStyle(
             color: Color(0xff3F52B3),
             fontWeight: FontWeight.w900,
-            fontSize: 25,
+            fontSize: 22,
             letterSpacing: 1,
           ),
+          bodyMedium: TextStyle(
+            fontSize: 13,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 8.5,
+          ),
+        ),
+        iconTheme: const IconThemeData(
+          color: Color(0xffffffff),
         ),
       ),
       routeInformationParser: Modular.routeInformationParser,

@@ -1,5 +1,11 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../../core/widgets/cards/action_button_widget.dart';
+import '../../../../core/widgets/cards/custom_card_radio_select_widget.dart';
+import '../../../../core/widgets/images/custom_image_widget.dart';
+import '../../../../core/widgets/textformfields/custom_textformfield_widget.dart';
+import '../../../../core/widgets/texts/custom_richtext_widget.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -13,6 +19,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final radioOption = ValueNotifier<bool?>(false);
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
 
@@ -22,11 +29,10 @@ class _SignInPageState extends State<SignInPage> {
         height: size.height,
         child: Stack(
           children: [
-            Image.asset(
-              'lib\\assets\\images\\Fundo.png',
-              height: size.height * 0.45,
-              width: size.width,
-              fit: BoxFit.cover,
+            const CustomImageWidget(
+              aspectRatio: 1,
+              path: 'lib\\assets\\images\\Fundo.png',
+              alignment: Alignment.topCenter,
             ),
             Positioned(
               bottom: 0,
@@ -34,15 +40,15 @@ class _SignInPageState extends State<SignInPage> {
                 height: size.height * 0.65,
                 width: size.width,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                  vertical: 50,
+                  horizontal: 35,
+                  vertical: 40,
                 ),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
                   ),
-                  color: Colors.white,
+                  color: theme.colorScheme.background,
                 ),
                 child: Form(
                   key: formKey,
@@ -53,129 +59,57 @@ class _SignInPageState extends State<SignInPage> {
                         'Welcome back',
                         style: theme.textTheme.displayMedium,
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 35),
                       const CustomTextFormFieldWidget(hintText: 'E-mail'),
+                      SizedBox(height: 5 + size.height * 0.015),
                       const CustomTextFormFieldWidget(hintText: 'Password'),
-                      CustomRadioSelectWidget(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Remember me'),
-                            const Text('Forgot password?'),
-                          ],
+                      const SizedBox(height: 12.5),
+                      ValueListenableBuilder<bool?>(
+                        valueListenable: radioOption,
+                        builder: (ctx, radioValue, widget) => CustomCardRadioSelectWidget(
+                          value: radioValue,
+                          onChanged: (value) => radioOption.value = value,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Remember me',
+                                style: theme.textTheme.bodySmall!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: -0.5,
+                                ),
+                              ),
+                              CustomRichTextWidget(
+                                text: 'Forgot password?',
+                                isUnderlined: true,
+                                onTap: () {},
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 50),
-                      const ActionButtonWidget(prefixText: 'Sign In'),
-                      CustomRichText(text: 'Sign Up', onTap: () {}),
+                      const SizedBox(height: 30),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ActionButtonWidget(prefixText: 'Sign In', onTap: () {}),
+                            const SizedBox(height: 10),
+                            CustomRichTextWidget(
+                              text: 'Sign Up',
+                              isUnderlined: true,
+                              onTap: () => Modular.to.navigate('/signup'),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomRichText extends StatelessWidget {
-  final String text;
-  final void Function() onTap;
-
-  const CustomRichText({
-    Key? key,
-    required this.text,
-    required this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return RichText(
-      text: TextSpan(
-        text: 'Sign Up',
-        style: TextStyle(
-          color: theme.colorScheme.secondary,
-          decoration: TextDecoration.underline,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-        ),
-        recognizer: TapGestureRecognizer()..onTap = onTap,
-      ),
-    );
-  }
-}
-
-class ActionButtonWidget extends StatelessWidget {
-  final String prefixText;
-
-  const ActionButtonWidget({
-    Key? key,
-    required this.prefixText,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(prefixText, style: theme.textTheme.bodyMedium),
-        ElevatedButton(
-          child: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            child: Icon(Icons.arrow_forward_rounded),
-          ),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-          ),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class CustomRadioSelectWidget extends StatelessWidget {
-  final Widget child;
-  const CustomRadioSelectWidget({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Radio(value: true, groupValue: true, onChanged: (_) {}),
-        const SizedBox(width: 5),
-        child,
-      ],
-    );
-  }
-}
-
-class CustomTextFormFieldWidget extends StatelessWidget {
-  final String hintText;
-
-  const CustomTextFormFieldWidget({
-    Key? key,
-    required this.hintText,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: theme.colorScheme.onTertiary,
         ),
       ),
     );
