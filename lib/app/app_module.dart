@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'src/modules/auth/presenter/pages/signin_page.dart';
-import 'src/modules/auth_module.dart';
+import 'core/routes/app_routes.dart';
+import 'modules/auth/auth_module.dart';
 
 class AppModule extends Module {
   @override
@@ -9,6 +9,6 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-        ModuleRoute('/', module: AuthModule()),
+        ModuleRoute(AppRoute.signin, module: AuthModule()),
       ];
 }
