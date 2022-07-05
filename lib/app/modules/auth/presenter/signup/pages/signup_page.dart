@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../../core/consts/paths.dart';
 import '../../../../../core/routes/app_routes.dart';
 import '../../../../../core/shared/specifications/name_specification.dart';
 import '../../../../../core/shared/value_objects/confirm_password.dart';
@@ -40,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Stack(
           children: [
             const CustomImageWidget(
-              path: 'lib\\assets\\images\\Fundo.png',
+              path: Paths.backgroundImage,
             ),
             SingleChildScrollView(
               child: Padding(

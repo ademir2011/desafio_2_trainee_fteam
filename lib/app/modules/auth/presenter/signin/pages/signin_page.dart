@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../../../../core/consts/paths.dart';
 import '../../../../../core/routes/app_routes.dart';
 import '../../../../../core/shared/value_objects/email.dart';
 import '../../../../../core/shared/value_objects/password.dart';
@@ -35,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Stack(
           children: [
             const CustomImageWidget(
-              path: 'lib\\assets\\images\\Fundo.png',
+              path: Paths.backgroundImage,
             ),
             SingleChildScrollView(
               child: Padding(
