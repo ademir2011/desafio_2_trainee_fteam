@@ -35,9 +35,7 @@ class _SignInPageState extends State<SignInPage> {
         child: Stack(
           children: [
             const CustomImageWidget(
-              aspectRatio: 1,
               path: 'lib\\assets\\images\\Fundo.png',
-              alignment: Alignment.topCenter,
             ),
             SingleChildScrollView(
               child: Padding(

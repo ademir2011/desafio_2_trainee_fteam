@@ -40,9 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Stack(
           children: [
             const CustomImageWidget(
-              aspectRatio: 1,
               path: 'lib\\assets\\images\\Fundo.png',
-              alignment: Alignment.topCenter,
             ),
             SingleChildScrollView(
               child: Padding(
